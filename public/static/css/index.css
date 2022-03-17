@@ -1,3 +1,16 @@
 body {
-  background-color: #ecf5a1;
+  background-color: black;
+}
+
+#calculator {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 600px;
+  height: 500px;
+  border-radius: 5px;
+  position: absolute;
+  background-color: #edc391;
 }
