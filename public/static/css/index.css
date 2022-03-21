@@ -1,5 +1,24 @@
+@font-face {
+  font-family: FSEX;
+  src: url('https://codesalvageon.github.io/magichat/fonts/FSEX300.ttf');
+}
+
 body {
+  font-family: FSEX;
   background-color: #B5C9c5;
+}
+
+p {
+  margin: 0;
+}
+
+select, option {
+  font-family: FSEX;
+}
+
+select, option {
+  border: none;
+  border-radius: 5px;
 }
 
 #calculator {
@@ -22,7 +41,33 @@ body {
 }
 
 #input {
+  margin: 0;
   width: 600px;
   height: 100px;
+  overflow-y: auto;
   background-color: #ADB5B3;
+}
+
+#equation {
+  width: 300px;
+  border: none;
+  border-radius: 5px;
+}
+
+.big {
+  font-size: 30px;
+}
+
+.btn {
+  width: 80px;
+  border: none;
+  border-radius: 5px;
+  font-family: FSEX;
+  background-color: gray;
+}
+
+.line {
+  width: 600px;
+  height: 0.5px;
+  background-color: grey;
 }
