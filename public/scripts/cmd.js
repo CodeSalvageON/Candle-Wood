@@ -4,6 +4,7 @@ const cmd_form = document.getElementById("cmd-form");
 const cmd = document.getElementById("cmd");
 const output_display = document.getElementById("output-display");
 const output = document.getElementById("output");
+const my_user = localStorage.getItem("candle_wood_user");
 
 cmd_form.onsubmit = function () {
   event.preventDefault();
@@ -59,14 +60,47 @@ cmd_form.onsubmit = function () {
 
         else {
           const context_msg = net_send_msg[1];
-          
+
+          fetch ("/net", {
+            method : "POST",
+            headers : {
+              "Content-Type" : "application/json" 
+            }, 
+            body : JSON.stringify({
+              user : my_user,
+              msg : context_msg
+            })
+          })
+          .then(response => response.text())
+          .then(data => {
+            console.log(data);
+
+            fetch ("/net")
+            .then(response => response.text())
+            .then(data => {
+              output_display.innerHTML += "<p>" + data + "</p>";
+            })
+            .catch(error => {
+              output_display.innerHTML += "<p>" + error + "</p>";
+            })
+          })
+          .catch(error => {
+            output_display.innerHTML += "<p>" + error + "</p>";
+          });
         }
       }
     }
 
     else if (cmd_a.includes("net get")) {
       if (cmd_a === "net get") {
-        
+        fetch ("/net")
+        .then(response => response.text())
+        .then(data => {
+          output_display.innerHTML += "<p>" + data + "</p>";
+        })
+        .catch(error => {
+          output_display.innerHTML += "<p>" + error + "</p>";
+        });
       }
 
       else {

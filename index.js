@@ -5,6 +5,7 @@ let http = require('http').Server(app);
 let bodyParser = require('body-parser');
 
 let port = process.env.PORT || 3000;
+let sanitizer = require('sanitizer');
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -18,7 +19,20 @@ app.get('', function (req, res) {
 
 let net_get = "";
 
-app.post('/net', function (req, res) {});
+app.post('/net', function (req, res) {
+  const user = req.body.user;
+  const msg = req.body.msg;
+
+  const clean_user = sanitizer.escape(user);
+  const clean_msg = sanitizer.escape(msg);
+
+  net_get = clean_user + ": " + msg;
+  res.send("set net get!");
+});
+
+app.get('/net', function (req, res) {
+  res.send(net_get);
+});
 
 http.listen(port, function(){
   console.log('listening on *:' + port);
