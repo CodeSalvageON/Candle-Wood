@@ -21,6 +21,10 @@ select, option {
   border-radius: 5px;
 }
 
+textarea:focus, input:focus{
+  outline: none;
+}
+
 #calculator {
   top: 0;
   left: 0;
@@ -65,6 +69,15 @@ select, option {
 
 #launcher {
   display: inline-block;
+}
+
+#cmd {
+  width: 500px;
+  color: limegreen;
+  font-size: 16px;
+  font-family: FSEX;
+  border: none;
+  background-color: transparent;
 }
 
 .big {

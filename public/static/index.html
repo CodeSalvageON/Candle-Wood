@@ -11,7 +11,12 @@
     <section id="background-image"></section>
     <section id="calculator">
       <section id="output">
-        <p>Awaiting commands...</p>
+        <section id="output-display">
+          <p>Awaiting commands...(type HELP for a list of commands)</p>
+        </section>
+        <form id="cmd-form" autocomplete="off">
+          <p>A> <input id="cmd" type="text" autocomplete="off"/></p>
+        </form>
       </section>
       <section id="input">
         <form id="input-form">
@@ -29,5 +34,6 @@
 
     <script src="/scripts/math.js"></script>
     <script src="/scripts/plot.js"></script>
+    <script src="/scripts/cmd.js"></script>
   </body>
 </html>
