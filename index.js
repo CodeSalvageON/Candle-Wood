@@ -16,6 +16,10 @@ app.get('', function (req, res) {
   res.sendFile(index);
 });
 
+let net_get = "";
+
+app.post('/net', function (req, res) {});
+
 http.listen(port, function(){
   console.log('listening on *:' + port);
 });
