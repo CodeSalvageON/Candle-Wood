@@ -1,5 +1,28 @@
+@font-face {
+  font-family: FSEX;
+  src: url('https://codesalvageon.github.io/magichat/fonts/FSEX300.ttf');
+}
+
 body {
-  background-color: #B5C9c5;
+  font-family: FSEX;
+  background-color: black;
+}
+
+p {
+  margin: 0;
+}
+
+select, option {
+  font-family: FSEX;
+}
+
+select, option {
+  border: none;
+  border-radius: 5px;
+}
+
+textarea:focus, input:focus{
+  outline: none;
 }
 
 #calculator {
@@ -12,17 +35,71 @@ body {
   height: 500px;
   border-radius: 5px;
   position: absolute;
-  background-color: #F7FAFA;
+  background-size: cover;
+  background-image: url('/static/geck.jpg');
 }
 
 #output {
   width: 600px;
-  height: 400px;
+  height: 300px;
+  filter: opacity(65%);
+  color: limegreen;
+  background-color: black; 
   overflow-y: auto;
 }
 
 #input {
+  margin: 0;
   width: 600px;
-  height: 100px;
+  height: 200px;
+  overflow-y: auto;
   background-color: #ADB5B3;
+}
+
+#equation {
+  width: 300px;
+  border: none;
+  border-radius: 5px;
+}
+
+#solve-btn {
+  width: 100px;
+  padding: 8px;
+}
+
+#launcher {
+  display: inline-block;
+}
+
+#cmd {
+  width: 500px;
+  color: limegreen;
+  font-size: 16px;
+  font-family: FSEX;
+  border: none;
+  background-color: transparent;
+}
+
+.big {
+  font-size: 30px;
+}
+
+.btn {
+  width: 80px;
+  border: none;
+  border-radius: 5px;
+  font-family: FSEX;
+  background-color: gray;
+}
+
+.line {
+  width: 600px;
+  height: 0.5px;
+  background-color: grey;
+}
+
+.launch {
+  color: white;
+  width: 200px;
+  height: 50px;
 }
