@@ -8,8 +8,11 @@
     <link href="/static/css/index.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
+    <section id="background-image"></section>
     <section id="calculator">
-      <section id="output"></section>
+      <section id="output">
+        <p>Awaiting commands...</p>
+      </section>
       <section id="input">
         <form id="input-form">
           <p class="big">Type: <select id="type" class="big">
@@ -18,9 +21,13 @@
             <option value="graph">Graph</option>
           </select></p>
           <p class="line"></p>
-          <p class="big">EQUATION: <input type="text" id="equation" class="big"/><button class="btn big">Solve</button></p>
+          <p class="big">EQUATION: <input type="text" id="equation" class="big"/><button class="btn big" id="solve-btn">Solve</button></p>
         </form>
+        <p id="launcher"><button class="btn launch">Launch Exurb Imperium</button><button class="btn launch">Launch Oak Knoll</button></p>
       </section>
     </section>
+
+    <script src="/scripts/math.js"></script>
+    <script src="/scripts/plot.js"></script>
   </body>
 </html>

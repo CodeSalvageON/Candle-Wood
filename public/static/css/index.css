@@ -5,7 +5,7 @@
 
 body {
   font-family: FSEX;
-  background-color: #B5C9c5;
+  background-color: black;
 }
 
 p {
@@ -31,19 +31,23 @@ select, option {
   height: 500px;
   border-radius: 5px;
   position: absolute;
-  background-color: #F7FAFA;
+  background-size: cover;
+  background-image: url('/static/geck.jpg');
 }
 
 #output {
   width: 600px;
-  height: 400px;
+  height: 300px;
+  filter: opacity(65%);
+  color: limegreen;
+  background-color: black; 
   overflow-y: auto;
 }
 
 #input {
   margin: 0;
   width: 600px;
-  height: 100px;
+  height: 200px;
   overflow-y: auto;
   background-color: #ADB5B3;
 }
@@ -52,6 +56,15 @@ select, option {
   width: 300px;
   border: none;
   border-radius: 5px;
+}
+
+#solve-btn {
+  width: 100px;
+  padding: 8px;
+}
+
+#launcher {
+  display: inline-block;
 }
 
 .big {
@@ -70,4 +83,10 @@ select, option {
   width: 600px;
   height: 0.5px;
   background-color: grey;
+}
+
+.launch {
+  color: white;
+  width: 200px;
+  height: 50px;
 }
