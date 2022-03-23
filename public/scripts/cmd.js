@@ -4,7 +4,13 @@ const cmd_form = document.getElementById("cmd-form");
 const cmd = document.getElementById("cmd");
 const output_display = document.getElementById("output-display");
 const output = document.getElementById("output");
-const my_user = localStorage.getItem("candle_wood_user");
+const oak_knoll = document.getElementById("oak-knoll");
+
+let my_user = localStorage.getItem("candle_wood_user");
+
+oak_knoll.onclick = function () {
+  window.open("https://oak-knoll-www.codesalvageon.repl.co/", "", "width=301,height=601");
+}
 
 cmd_form.onsubmit = function () {
   event.preventDefault();
@@ -21,6 +27,24 @@ cmd_form.onsubmit = function () {
     output_display.innerHTML += "<p>upload - upload and load your calculator state</p>";
     output_display.innerHTML += "<p>outlet - get widgets from the Exurb Imperium</p>";
     output_display.innerHTML += "<p>cls - clear the screen</p>";
+    output_display.innerHTML += "<p>scrape - webscrape a URL</p>";
+  }
+
+  else if (cmd_a.includes("js")) {
+    let js_command = cmd.value.slice(2);
+
+    if (js_command[0] === " ") {
+      js_command = js_command.slice(1);
+    }
+
+    try {
+      eval(js_command)
+    }
+    catch (error) {
+      output_display.innerHTML += "<p>" + error + "</p>";
+    }
+    
+    output_display.innerHTML += '<p>JavaScript script "' + js_command + '" evaluated.</p>';
   }
       
   else if (cmd_a.includes("rover")) {
@@ -108,6 +132,20 @@ cmd_form.onsubmit = function () {
       }
     }
 
+    else if (cmd_a.includes("net set")) {
+      if (cmd_a === "net set") {
+        output_display.innerHTML += "<p>Try setting a local user, i.e. net set example</p>";
+      }
+
+      else {
+        const new_local_user = cmd.value.replace("net set", "");
+        localStorage.setItem("candle_wood_user", new_local_user);
+        my_user = new_local_user;
+
+        output_display.innerHTML += "<p>Set network user to " + my_user + "</p>";
+      }
+    }
+
     else {
       output_display.innerHTML += "<p>--net</p>";
       output_display.innerHTML += "<p>Try</p>";
@@ -141,6 +179,14 @@ cmd_form.onsubmit = function () {
       const navApp = navigator.appVersion;
 
       output_display.innerHTML += navApp;
+    }
+
+    else if (cmd_a === "local") {
+      output_display.innerHTML += "<p>--local</p>";
+      output_display.innerHTML += "<p>Try</p>";
+      output_display.innerHTML += "<p>local check (checks if you have internet connection)</p>";
+      output_display.innerHTML += "<p>local time (checks the current date time)</p>";
+      output_display.innerHTML += "<p>local client (checks the current browser client)</p>";
     }
 
     else {

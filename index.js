@@ -23,10 +23,14 @@ app.post('/net', function (req, res) {
   const user = req.body.user;
   const msg = req.body.msg;
 
-  const clean_user = sanitizer.escape(user);
+  let clean_user = sanitizer.escape(user);
   const clean_msg = sanitizer.escape(msg);
 
-  net_get = clean_user + ": " + msg;
+  if (clean_user === null || clean_user === "" || clean_user === undefined) {
+    clean_user = "Anonymous";
+  }
+
+  net_get = clean_user + ": " + clean_msg;
   res.send("set net get!");
 });
 

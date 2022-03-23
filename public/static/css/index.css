@@ -53,7 +53,8 @@ textarea:focus, input:focus{
   width: 600px;
   height: 200px;
   overflow-y: auto;
-  background-color: #ADB5B3;
+  color: limegreen;
+  background-color: #222222;
 }
 
 #equation {
