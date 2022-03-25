@@ -308,11 +308,20 @@ function drawGraph () {
 input_form.onsubmit = function () {
   event.preventDefault();
 
-  output_display.innerHTML += "<p>" + equation.value + "</p>";
+  output_display.innerHTML += "<p>" + encode(equation.value) + "</p>";
 
   if (type.value === "algebra") {
     try {
-      let math_wrath = math.simplify(equation.value).toString();
+      let math_wrath = math.simplify(equation.value).toString().replace(" * x", "x");
+
+      if (math_wrath.includes("^")) {
+        output_display.innerHTML += "<p>When two powers with the same base are multiplied together, the powers are added together and the base stays the same.</p>";
+      }
+
+      else {
+        // Do nothing
+      }
+      
       output_display.innerHTML += "<p>" + math_wrath + "</p>";
     }
 
