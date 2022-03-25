@@ -6,6 +6,8 @@ let bodyParser = require('body-parser');
 
 let port = process.env.PORT || 3000;
 let sanitizer = require('sanitizer');
+let request = require('request');
+let rp = require('request-promise');
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -36,6 +38,18 @@ app.post('/net', function (req, res) {
 
 app.get('/net', function (req, res) {
   res.send(net_get);
+});
+
+app.post('/scrape', function (req, res) {
+  const url = req.body.url;
+
+  rp (url)
+  .then(function (html) {
+    res.send(sanitizer.escape(html));
+  })
+  .catch(function (error) {
+    res.send(error);
+  });
 });
 
 http.listen(port, function(){

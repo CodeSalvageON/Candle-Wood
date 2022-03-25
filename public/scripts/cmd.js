@@ -5,8 +5,34 @@ const cmd = document.getElementById("cmd");
 const output_display = document.getElementById("output-display");
 const output = document.getElementById("output");
 const oak_knoll = document.getElementById("oak-knoll");
+const radio_btn = document.getElementById("radio-btn");
+
+const input_form = document.getElementById("input-form");
+const type = document.getElementById("type");
+const equation = document.getElementById("equation");
+
+function encode(r){
+  return r.replace(/[\x26\x0A\<>'"]/g,function(r){return"&#"+r.charCodeAt(0)+";"})
+}
 
 let my_user = localStorage.getItem("candle_wood_user");
+
+const limitedEvaluate = math.evaluate;
+
+const ngApp = document.querySelector(".ng-app-embedded");
+document.querySelector(".ng-app-embedded").style.display = "none";
+
+function cleanOutput (output_ex) {
+  const no_space_x = output_ex.replace(" * x", "x");
+
+  if (output.includes(" * x")) {
+    return no_space_x;
+  }
+
+  else {
+    return output_ex;
+  }
+}
 
 oak_knoll.onclick = function () {
   window.open("https://oak-knoll-www.codesalvageon.repl.co/", "", "width=301,height=601");
@@ -14,9 +40,9 @@ oak_knoll.onclick = function () {
 
 cmd_form.onsubmit = function () {
   event.preventDefault();
-  let cmd_a = cmd.value.toLowerCase();
+  let cmd_a = HtmlSanitizer.SanitizeHtml(cmd.value.toLowerCase());
 
-  output_display.innerHTML += "<p>A> " + cmd.value + "</p>";
+  output_display.innerHTML += "<p>A> " + encode(cmd.value) + "</p>";
 
   if (cmd_a.includes("help")) {
     output_display.innerHTML += "<p>js - execute javascript commands</p>";
@@ -28,6 +54,7 @@ cmd_form.onsubmit = function () {
     output_display.innerHTML += "<p>outlet - get widgets from the Exurb Imperium</p>";
     output_display.innerHTML += "<p>cls - clear the screen</p>";
     output_display.innerHTML += "<p>scrape - webscrape a URL</p>";
+    output_display.innerHTML += "<p>math - parse a math expression</p>";
   }
 
   else if (cmd_a.includes("js")) {
@@ -218,10 +245,81 @@ cmd_form.onsubmit = function () {
     }
   }
 
+  else if (cmd_a.includes("scrape")) {
+    const scrape_url = cmd_a.slice(6).replace(" ", "");
+
+    if (scrape_url === "" || scrape_url === null || scrape_url === undefined) {
+      output_display.innerHTML += "<p>Did you mean to scrape a url?</p>";
+      cmd.value = "";
+      return false;
+    }
+
+    fetch ("/scrape", {
+      method : "POST",
+      headers : {
+        "Content-Type" : "application/json" 
+      },
+      body : JSON.stringify({
+        url : scrape_url 
+      })
+    })
+    .then(response => response.text())
+    .then(data => {
+      output_display.innerHTML += "<p>" + data + "</p>";
+      output_display.innerHTML += "<p> Scraped " + scrape_url + "</p>";
+    })
+    .catch(error => {
+      output_display.innerHTML += "<p>" + error + "</p>";
+    });
+  }
+
+  else if (cmd_a.includes("math")) {
+    try {
+      const expression = cmd_a.slice("4");
+
+      output_display.innerHTML += "<p>" + limitedEvaluate(expression) + "</p>"; 
+    }
+
+    catch (error) {
+      output_display.innerHTML += "<p>" + error + "</p>";
+      cmd.value = "";
+    }
+  }
+
   else {
-    output_display.innerHTML += "<p>" + cmd.value + "?</p>";
+    output_display.innerHTML += "<p>" + encode(cmd.value) + "?</p>";
   }
 
   cmd.value = "";
   output.scrollTo(0, output.scrollHeight);
+}
+
+let is_playing_radio = false;
+const play_btn = document.querySelector(".rde-player-btn-play-pause");
+
+radio_btn.onclick = function () {
+  document.querySelector(".rde-player-btn-play-pause").click();
+}
+
+function drawGraph () {
+  
+}
+
+input_form.onsubmit = function () {
+  event.preventDefault();
+
+  output_display.innerHTML += "<p>" + equation.value + "</p>";
+
+  if (type.value === "algebra") {
+    try {
+      let math_wrath = math.simplify(equation.value).toString();
+      output_display.innerHTML += "<p>" + math_wrath + "</p>";
+    }
+
+    catch (error) {
+      output_display.innerHTML += "<p>" + error + "</p>";
+    }
+  }
+
+  equation.value = "";
 }
