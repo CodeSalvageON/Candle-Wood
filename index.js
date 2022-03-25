@@ -6,6 +6,8 @@ let bodyParser = require('body-parser');
 
 let port = process.env.PORT || 3000;
 let sanitizer = require('sanitizer');
+let request = require('request');
+let rp = require('request-promise');
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -23,15 +25,31 @@ app.post('/net', function (req, res) {
   const user = req.body.user;
   const msg = req.body.msg;
 
-  const clean_user = sanitizer.escape(user);
+  let clean_user = sanitizer.escape(user);
   const clean_msg = sanitizer.escape(msg);
 
-  net_get = clean_user + ": " + msg;
+  if (clean_user === null || clean_user === "" || clean_user === undefined) {
+    clean_user = "Anonymous";
+  }
+
+  net_get = clean_user + ": " + clean_msg;
   res.send("set net get!");
 });
 
 app.get('/net', function (req, res) {
   res.send(net_get);
+});
+
+app.post('/scrape', function (req, res) {
+  const url = req.body.url;
+
+  rp (url)
+  .then(function (html) {
+    res.send(sanitizer.escape(html));
+  })
+  .catch(function (error) {
+    res.send(error);
+  });
 });
 
 http.listen(port, function(){
