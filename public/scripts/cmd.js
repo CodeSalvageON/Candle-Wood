@@ -20,7 +20,13 @@ imageLoader.addEventListener('change', handleImage, false);
 let wikipediaLoader = [];
 let wikipediaSaver = localStorage.getItem("candle_wood_wl");
 
-wikipediaLoader = JSON.parse(wikipediaSaver);
+if (wikipediaSaver === null || wikipediaSaver === "" || wikipediaSaver === undefined) {
+  // Do nothing
+}
+
+else {
+  wikipediaLoader = JSON.parse(wikipediaSaver);
+}
 
 function handleImage (e) {
   let reader = new FileReader();
