@@ -356,7 +356,7 @@ cmd_form.onsubmit = function () {
         }
 
         else {
-          wikipediaLoader.push(formula_page + ">/?}|\+=-;", data);
+          wikipediaLoader.push(formula_page + ">/?}|\+=-;" + data);
           output_display.innerHTML += "<p>Downloaded Wikipedia page. However, it is advised that you download your calculator state.</p>";
         }
       })
@@ -374,7 +374,7 @@ cmd_form.onsubmit = function () {
     output_display.innerHTML += "<p>Loading saved formulas...</p>";
 
     for (i = 0; i < wikipediaLoader.length; i++) {
-      output_display.innerHTML += "<p>Save number: " + i + " (" + wikipediaLoader[i].split(">/?}|\+=-;")[0] + ")</p>";
+      output_display.innerHTML += "<p>Save number: " + i + " (" + encode(wikipediaLoader[i].split(">/?}|\+=-;")[0]) + ")</p>";
     }
 
     output_display.innerHTML += "<p>Type load_page and the number of the save in order to load it. Example: load_page 0</p>";
