@@ -378,7 +378,7 @@ cmd_form.onsubmit = function () {
         else {
           wikipediaLoader.push(formula_page + ">/?}|\+=-;" + data);
           output_display.innerHTML += "<p>Downloaded Wikipedia page.</p>";
-          localStorage.setItem("candle_wood_wl", wikipediaLoader);
+          localStorage.setItem("candle_wood_wl", JSON.stringify(wikipediaLoader));
         }
       })
       .catch(error => {
