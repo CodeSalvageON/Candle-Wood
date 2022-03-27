@@ -29,12 +29,16 @@
           <p class="line"></p>
           <p class="big">EQUATION: <input type="text" id="equation" class="big" autocomplete="off"/><button class="btn big" id="solve-btn">Solve</button></p>
         </form>
-        <form id="image-form"></form>
+        <form id="image-form">
+          <p>Solve from Image: <input type="file" id="imageLoader" name="imageLoader" class="btn"/><button class="btn" id="img-solve">solve from image</button></p>
+        </form>
+        <p class="line"></p>
         <p id="launcher"><a href="https://theoutlet.netlify.app" target="_blank"><button class="btn launch">Launch Exurb Imperium</button></a><button class="btn launch" id="oak-knoll">Launch Oak Knoll</button></p>
         <p><button id="radio-btn">RADIO - PRESS AGAIN TO STOP</button></p>
         <img src="/static/nixie.gif" id="nixie">
       </section>
     </section>
+    <canvas id="image-canvas"></canvas>
 
     <script>(function(d, s){if(!window.rel){s = d.createElement("script");s.type = "text/javascript";s.async = true;s.id = "radio-de-embedded";s.src = "https://www.radio.net/inc/microsite/js/full.js";d.getElementsByTagName("head")[0].appendChild(s);window.rel = true;}}(document));</script>
     <div class="ng-app-embedded"><div ui-view class="microsite embedded-radio-player" data-playerwidth="340px" data-playertype="web_embedded" data-playstation="radioaddictive50s" data-autoplay="true" data-apikey="df04ff67dd3339a6fc19c9b8be164d5b5245ae93"></div></div><noscript><a href="https://www.radio.net/s/radioaddictive50s" target="_blank">Radio Addictive 50s on radio.net</a></noscript>

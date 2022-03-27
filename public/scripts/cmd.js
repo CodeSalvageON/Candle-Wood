@@ -12,6 +12,40 @@ const type = document.getElementById("type");
 const equation = document.getElementById("equation");
 
 const image_form = document.getElementById("image-form");
+const imageLoader = document.getElementById("imageLoader");
+const imageCanvas = document.getElementById("image-canvas");
+const ctx = imageCanvas.getContext('2d');
+
+imageLoader.addEventListener('change', handleImage, false);
+
+function handleImage (e) {
+  let reader = new FileReader();
+  reader.onload = function (event) {
+    let img = new Image();
+    img.onload = function () {
+      imageCanvas.width = img.width;
+      imageCanvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+    }
+    
+    img.src = event.target.result;
+  }
+  reader.readAsDataURL(e.target.files[0]);
+}
+
+image_form.onsubmit = function () {
+  event.preventDefault();
+  
+  let dataUri = imageCanvas.toDataURL();
+  output_display.innerHTML += "<p>Please wait a few seconds.</p>";
+
+  Tesseract.recognize(
+    dataUri,'eng',
+  { logger: m => console.log(m) }
+).then(({ data: { text } }) => {
+  equation.value = text;
+});
+}
 
 function encode(r){
   return r.replace(/[\x26\x0A\<>'"]/g,function(r){return"&#"+r.charCodeAt(0)+";"})
