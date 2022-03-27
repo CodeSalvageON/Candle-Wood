@@ -139,3 +139,9 @@ input {
 .flex {
   display: flex;
 }
+
+.load {
+  width: 400px;
+  height: 400px;
+  overflow-y: auto;
+}

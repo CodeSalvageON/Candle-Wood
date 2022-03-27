@@ -380,6 +380,29 @@ cmd_form.onsubmit = function () {
     output_display.innerHTML += "<p>Type load_page and the number of the save in order to load it. Example: load_page 0</p>";
   }
 
+  else if (cmd_a.includes("load_page")) {
+    const load_number = cmd_a.slice("9");
+
+    if (load_number === "" || load_number === null || load_number === undefined) {
+      output_display.innerHTML += "<p>Load was not found. Try load_page 0</p>";
+    }
+
+    else {
+      let load_content = wikipediaLoader[parseInt(load_number)].split(">/?}|\+=-;")[1];
+
+      if (load_content === "" || load_content === null || load_content === undefined) {
+        output_display.innerHTML += "<p>Load was not found. Try using the load command and seeing all your current loads, or upload a calculator state that has one.</p>";
+      }
+
+      else {
+        let loadTemplate = document.getElementsByClassName("load");
+
+        output_display.innerHTML += "<section class='load'></section>";
+        loadTemplate[loadTemplate.length - 1].innerHTML = load_content;
+      }
+    }
+  }
+
   else {
     output_display.innerHTML += "<p>" + encode(cmd.value) + "?</p>";
   }
