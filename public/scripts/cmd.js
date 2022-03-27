@@ -276,7 +276,7 @@ cmd_form.onsubmit = function () {
     try {
       const expression = cmd_a.slice("4");
 
-      output_display.innerHTML += "<p>" + limitedEvaluate(expression) + "</p>"; 
+      output_display.innerHTML += "<p>" + math.simplify(expression) + "</p>"; 
     }
 
     catch (error) {
