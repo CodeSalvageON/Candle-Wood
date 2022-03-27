@@ -11,6 +11,8 @@ const input_form = document.getElementById("input-form");
 const type = document.getElementById("type");
 const equation = document.getElementById("equation");
 
+const image_form = document.getElementById("image-form");
+
 function encode(r){
   return r.replace(/[\x26\x0A\<>'"]/g,function(r){return"&#"+r.charCodeAt(0)+";"})
 }
@@ -50,10 +52,10 @@ cmd_form.onsubmit = function () {
     output_display.innerHTML += "<p>local - local network settings</p>";
     output_display.innerHTML += "<p>download - download your calculator state</p>";
     output_display.innerHTML += "<p>upload - upload and load your calculator state</p>";
-    output_display.innerHTML += "<p>outlet - get widgets from the Exurb Imperium</p>";
     output_display.innerHTML += "<p>cls - clear the screen</p>";
     output_display.innerHTML += "<p>scrape - webscrape a URL</p>";
     output_display.innerHTML += "<p>math - parse a math expression</p>";
+    output_display.innerHTML += "<p>proxy - opens a new tab with a proxied url</p>";
   }
 
   else if (cmd_a.includes("js")) {
@@ -230,10 +232,6 @@ cmd_form.onsubmit = function () {
 
   else if (cmd_a.includes("upload")) {}
 
-  else if (cmd_a.includes("outlet")) {
-    
-  }
-
   else if (cmd_a.includes("cls")) {
     if (cmd_a.includes("cls ") || cmd_a.length > 3) {
       output_display.innerHTML += "<p>No parameters found for command cls</p>";
@@ -285,6 +283,19 @@ cmd_form.onsubmit = function () {
     }
   }
 
+  else if (cmd_a.includes("proxy")) {
+    const proxy_url = cmd_a.slice("5");
+
+    if (proxy_url === "" || proxy_url === null || proxy_url === undefined) {
+      output_display.innerHTML += "<p>No URL specified. Try proxy https://google.com</p>";
+    }
+
+    else {
+      output_display.innerHTML += "<p>ignore 'Deceptive site warning'</p>";
+      window.open("https://borgcube.codesalvageon.repl.co/u/" + proxy_url.replace(" ", ""));
+    }
+  }
+
   else {
     output_display.innerHTML += "<p>" + encode(cmd.value) + "?</p>";
   }
@@ -300,10 +311,6 @@ radio_btn.onclick = function () {
   document.querySelector(".rde-player-btn-play-pause").click();
 }
 
-function drawGraph () {
-  
-}
-
 input_form.onsubmit = function () {
   event.preventDefault();
 
@@ -311,7 +318,7 @@ input_form.onsubmit = function () {
 
   if (type.value === "algebra") {
     try {
-      let math_wrath = math.simplify(equation.value).toString().replace(" * x", "x");
+      let math_wrath = nerdamer.solve(equation.value, 'x').toString().replace(" * x", "x");
 
       if (math_wrath.includes("^")) {
         output_display.innerHTML += "<p>When two powers with the same base are multiplied together, the powers are added together and the base stays the same.</p>";
@@ -327,6 +334,28 @@ input_form.onsubmit = function () {
     catch (error) {
       output_display.innerHTML += "<p>" + error + "</p>";
     }
+
+    output_display.innerHTML += "<p>Variables must be called 'x'.</p>";
+  }
+
+    else if (type.value === "simplify") {
+      try {
+        let math_wrath = math.simplify(equation.value).toString().replace(" * x", "x");
+
+        if (math_wrath.includes("^")) {
+          output_display.innerHTML += "<p>When two powers with the same base are multiplied together, the powers are added together and the base stays the same.</p>";
+        }
+
+        else {
+          // Do nothing
+        }
+      
+        output_display.innerHTML += "<p>" + math_wrath + "</p>";
+      }
+
+      catch (error) {
+        output_display.innerHTML += "<p>" + error + "</p>";
+      }
   }
 
   else if (type.value === "word") {
@@ -381,6 +410,33 @@ input_form.onsubmit = function () {
       output_display.innerHTML += "<p>" + error + "</p>";
       output.scrollTo(0, output.scrollHeight);
     });
+  }
+
+  else if (type.value === "graph") {
+    try {
+      let plot_expr = math.compile(equation.value);
+
+      let xVals = math.range(-10, 10, 0.5).toArray();
+      let yVals = xVals.map(function (x) {
+        return plot_expr.evaluate({x: x})
+      });
+
+      let trace1 = {
+        x : xVals,
+        y : yVals,
+        type : 'scatter'
+      }
+    
+      let data = [trace1];
+      let allPlots = document.getElementsByClassName("plot");
+      output_display.innerHTML += "<p class='plot'></p>";
+    
+      Plotly.newPlot(allPlots[allPlots.length - 1], data);
+   }
+      
+   catch (error) {
+     output_display.innerHTML += "<p>" + error + "</p>";
+   }
   }
 
   equation.value = "";
