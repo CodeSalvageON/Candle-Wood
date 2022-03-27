@@ -99,6 +99,19 @@ input {
   border-radius: 5px;
 }
 
+#imageLoader {
+  width: 200px;
+  font-family: FSEX;
+}
+
+#img-solve {
+  width: 200px;
+}
+
+#image-canvas {
+  display: none;
+}
+
 .big {
   font-size: 30px;
 }
