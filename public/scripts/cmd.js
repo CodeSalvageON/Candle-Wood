@@ -311,7 +311,7 @@ input_form.onsubmit = function () {
 
   if (type.value === "algebra") {
     try {
-      let math_wrath = math.simplify(equation.value).toString().replace(" * x", "x");
+      let math_wrath = nerdamer.solve(equation.value, 'x').toString().replace(" * x", "x");
 
       if (math_wrath.includes("^")) {
         output_display.innerHTML += "<p>When two powers with the same base are multiplied together, the powers are added together and the base stays the same.</p>";
@@ -327,6 +327,28 @@ input_form.onsubmit = function () {
     catch (error) {
       output_display.innerHTML += "<p>" + error + "</p>";
     }
+
+    output_display.innerHTML += "<p>Variables must be called 'x'.</p>";
+  }
+
+    else if (type.value === "simplify") {
+      try {
+        let math_wrath = math.simplify(equation.value).toString().replace(" * x", "x");
+
+        if (math_wrath.includes("^")) {
+          output_display.innerHTML += "<p>When two powers with the same base are multiplied together, the powers are added together and the base stays the same.</p>";
+        }
+
+        else {
+          // Do nothing
+        }
+      
+        output_display.innerHTML += "<p>" + math_wrath + "</p>";
+      }
+
+      catch (error) {
+        output_display.innerHTML += "<p>" + error + "</p>";
+      }
   }
 
   else if (type.value === "word") {
@@ -381,6 +403,33 @@ input_form.onsubmit = function () {
       output_display.innerHTML += "<p>" + error + "</p>";
       output.scrollTo(0, output.scrollHeight);
     });
+  }
+
+  else if (type.value === "graph") {
+    try {
+      let plot_expr = math.compile(equation.value);
+
+      let xVals = math.range(-10, 10, 0.5).toArray();
+      let yVals = xVals.map(function (x) {
+        return plot_expr.evaluate({x: x})
+      });
+
+      let trace1 = {
+        x : xVals,
+        y : yVals,
+        type : 'scatter'
+      }
+    
+      let data = [trace1];
+      let allPlots = document.getElementsByClassName("plot");
+      output_display.innerHTML += "<p class='plot'></p>";
+    
+      Plotly.newPlot(allPlots[allPlots.length - 1], data);
+   }
+      
+   catch (error) {
+     output_display.innerHTML += "<p>" + error + "</p>";
+   }
   }
 
   equation.value = "";
