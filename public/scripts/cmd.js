@@ -17,6 +17,7 @@ const imageCanvas = document.getElementById("image-canvas");
 const ctx = imageCanvas.getContext('2d');
 
 imageLoader.addEventListener('change', handleImage, false);
+let wikipediaLoader = [];
 
 function handleImage (e) {
   let reader = new FileReader();
@@ -90,6 +91,8 @@ cmd_form.onsubmit = function () {
     output_display.innerHTML += "<p>scrape - webscrape a URL</p>";
     output_display.innerHTML += "<p>math - parse a math expression</p>";
     output_display.innerHTML += "<p>proxy - opens a new tab with a proxied url</p>";
+    output_display.innerHTML += "<p>formula - download a formula's Wikipedia page</p>";
+    output_display.innerHTML += "<p>load - load a download formula's Wikipedia page onto the calculator screen</p>";
   }
 
   else if (cmd_a.includes("js")) {
@@ -328,6 +331,53 @@ cmd_form.onsubmit = function () {
       output_display.innerHTML += "<p>ignore 'Deceptive site warning'</p>";
       window.open("https://borgcube.codesalvageon.repl.co/u/" + proxy_url.replace(" ", ""));
     }
+  }
+
+  else if (cmd_a.includes("formula")) {
+    const formula_wikipedia = cmd_a.slice("7");
+    const formula_page = formula_wikipedia.replace(" ", "");
+
+    if (formula_page.includes("wiki")) {
+      output_display.innerHTML += "<p>Downloading formula Wikipedia page...</p>";
+      
+      fetch ("/unsafescrape", {
+        method : "POST",
+        headers : {
+          "Content-Type" : "application/json"
+        },
+        body : JSON.stringify({
+          url : formula_page
+        })
+      })
+      .then(response => response.text())
+      .then(data => {
+        if (data.includes("does not have an article with this exact name.")) {
+          output_display.innerHTML += "<p>Unable to download this Wikipedia page, because it does not exist.</p>";
+        }
+
+        else {
+          wikipediaLoader.push(formula_page + ">/?}|\+=-;", data);
+          output_display.innerHTML += "<p>Downloaded Wikipedia page. However, it is advised that you download your calculator state.</p>";
+        }
+      })
+      .catch(error => {
+        output_display.innerHTML += "<p>" + error + "</p>";
+      });
+    }
+
+    else {
+      output_display.innerHTML += "<p>URL must be that of a Wikipedia page</p>";
+    }
+  }
+
+  else if (cmd_a === "load") {
+    output_display.innerHTML += "<p>Loading saved formulas...</p>";
+
+    for (i = 0; i < wikipediaLoader.length; i++) {
+      output_display.innerHTML += "<p>Save number: " + i + " (" + wikipediaLoader[i].split(">/?}|\+=-;")[0] + ")</p>";
+    }
+
+    output_display.innerHTML += "<p>Type load_page and the number of the save in order to load it. Example: load_page 0</p>";
   }
 
   else {

@@ -9,8 +9,6 @@ let sanitizer = require('sanitizer');
 let request = require('request');
 let rp = require('request-promise');
 
-let Algebrite = require('algebrite');
-
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
