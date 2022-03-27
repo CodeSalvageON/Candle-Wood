@@ -46,7 +46,6 @@ cmd_form.onsubmit = function () {
 
   if (cmd_a.includes("help")) {
     output_display.innerHTML += "<p>js - execute javascript commands</p>";
-    output_display.innerHTML += "<p>rover - tamper with Rover's memory storage</p>";
     output_display.innerHTML += "<p>net - check the Candle Wood server</p>";
     output_display.innerHTML += "<p>local - local network settings</p>";
     output_display.innerHTML += "<p>download - download your calculator state</p>";
@@ -330,5 +329,60 @@ input_form.onsubmit = function () {
     }
   }
 
+  else if (type.value === "word") {
+    const fixed_url = equation.value.replace(" ", "%20");
+
+    fetch ("/unsafescrape", {
+      method : "POST",
+      headers : {
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify({
+        url : "https://www.google.com/search?q=" + fixed_url
+      })
+    })
+    .then(response => response.text())
+    .then(data => {
+      const data_array = data.split("<a href=");
+      const all_array = [];
+      let turn = 0;
+
+      for (i = 0; i < data_array.length; i++) {
+        if (data_array[i].includes("https://")) {
+          const link_array = data_array[i].split('"');
+
+          if (turn === 0) {
+            // PASS 
+            turn = turn + 1;
+          }
+
+          else {
+            all_array.push(link_array[1]);
+          }
+        }
+      }
+
+      let fifty_array = all_array.reverse();
+ 
+      for (i = 0; i < fifty_array.length; i++) {
+        output_display.innerHTML = output_display.innerHTML + "<p><a href='https://google.com" + fifty_array[i] + "' target='_blank'>" + fifty_array[i].replace("/url?q=", "") + "</a></p><hr/>";
+      }
+
+      if (data.includes("https://brainly") || data.includes("https://jishka") || data.includes("https://quora") || data.includes("https://wyzant")) {
+        output_display.innerHTML += "<p>Likely answers found!</p>";
+      }
+
+      else {
+        output_display.innerHTML += "<p>Answers may vary.</p>";
+      }
+      output.scrollTo(0, output.scrollHeight);
+    })
+    .catch(error => {
+      output_display.innerHTML += "<p>" + error + "</p>";
+      output.scrollTo(0, output.scrollHeight);
+    });
+  }
+
   equation.value = "";
+  output.scrollTo(0, output.scrollHeight);
 }
