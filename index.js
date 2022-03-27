@@ -42,10 +42,24 @@ app.get('/net', function (req, res) {
 
 app.post('/scrape', function (req, res) {
   const url = req.body.url;
+  console.log("Scraping " + url);
 
   rp (url)
   .then(function (html) {
     res.send(sanitizer.escape(html));
+  })
+  .catch(function (error) {
+    res.send(error);
+  });
+});
+
+app.post('/unsafescrape', function (req, res) {
+  const url = req.body.url;
+  console.log("Scraping " + url);
+
+  rp (url)
+  .then(function (html) {
+    res.send(html);
   })
   .catch(function (error) {
     res.send(error);
