@@ -27,3 +27,16 @@ window.open("https://candle-wood.codesalvageon.repl.co/", "", "width=501,height=
 <img src="https://codesalvageon.github.io/magichat/images/Screen%20Shot%202022-03-27%20at%209.32.58%20PM.png"/>
 
 * Remember to choose what type of problem you're trying to solve.
+
+### Step 3
+<p>And that's about it, for most basic problems at least.</p>
+<p>The next section is about the more complicated parts of the calculator.</p>
+
+## Command Prompt
+<p>The command prompt is one of the most complicated parts of the calculator.</p>
+<h3>Command Line Tree</h3>
+
+<details>
+<summary>The js command</summary>
+You can execute almost any kind of JavaScript script using the js command. Example: `js alert("hello");`, would give a prompt saying "hello".
+</details>
