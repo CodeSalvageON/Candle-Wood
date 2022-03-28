@@ -30,13 +30,3 @@ window.open("https://candle-wood.codesalvageon.repl.co/", "", "width=501,height=
 
 ### Step 3
 <p>And that's about it, for most basic problems at least.</p>
-<p>The next section is about the more complicated parts of the calculator.</p>
-
-## Command Prompt
-<p>The command prompt is one of the most complicated parts of the calculator.</p>
-<h3>Command Line Tree</h3>
-
-<details>
-<summary>The js command</summary>
-You can execute almost any kind of JavaScript script using the js command. Example: <pre>js alert("hello");</pre> Would give a prompt saying "hello".
-</details>
