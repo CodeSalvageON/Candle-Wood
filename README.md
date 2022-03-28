@@ -24,3 +24,6 @@ window.open("https://candle-wood.codesalvageon.repl.co/", "", "width=501,height=
 
 ### Step 2
 <p>Either upload an image of the problem or enter the problem manually.</p>
+<img src="https://codesalvageon.github.io/magichat/images/Screen%20Shot%202022-03-27%20at%209.32.58%20PM.png"/>
+
+* Remember to choose what type of problem you're trying to solve.
