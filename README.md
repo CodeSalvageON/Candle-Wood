@@ -23,3 +23,4 @@ window.open("https://candle-wood.codesalvageon.repl.co/", "", "width=501,height=
 * All you need to do is refresh the page or run the script a second time.
 
 ### Step 2
+<p>Either upload an image of the problem or enter the problem manually.</p>
