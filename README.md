@@ -19,6 +19,7 @@ window.open("https://candle-wood.codesalvageon.repl.co/", "", "width=501,height=
 
 * What happens if I see this error?
 <img src="https://codesalvageon.github.io/magichat/images/Screen%20Shot%202022-03-27%20at%209.06.32%20PM.png" alt="error" width="325" height="180"/>
+
 * All you need to do is refresh the page or run the script a second time.
 
 ### Step 2
