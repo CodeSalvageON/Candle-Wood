@@ -38,5 +38,5 @@ window.open("https://candle-wood.codesalvageon.repl.co/", "", "width=501,height=
 
 <details>
 <summary>The js command</summary>
-You can execute almost any kind of JavaScript script using the js command. Example: <pre>js alert("hello");</pre>, would give a prompt saying "hello".
+You can execute almost any kind of JavaScript script using the js command. Example: <pre>js alert("hello");</pre> Would give a prompt saying "hello".
 </details>
