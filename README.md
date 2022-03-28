@@ -9,3 +9,12 @@ A general-purpose graphing calculator for education.
 ```
 javascript:window.open("https://candle-wood.codesalvageon.repl.co/", "", "width=501,height=601");
 ```
+* You can put the above code in the URL and run it there, or you can open the console using inspect element and paste the following code:
+```
+window.open("https://candle-wood.codesalvageon.repl.co/", "", "width=501,height=601");
+```
+* What happens if I see this error?
+<img src="https://codesalvageon.github.io/magichat/images/Screen%20Shot%202022-03-27%20at%209.06.32%20PM.png" alt="error"/>
+* All you need to do is refresh the page or run the script a second time.
+
+### Step 2
