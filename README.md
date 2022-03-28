@@ -4,12 +4,12 @@ A general-purpose graphing calculator for education.
 ## How to use, step by step
 
 ### Step 1
-* You can either use the website, https://candlewood.netlify.app
-* Or you can use a JavaScript script to open a new window.
+<p>You can either use the website, https://candlewood.netlify.app</p>
+<p>Or you can use a JavaScript script to open a new window.</p>
 ```
 javascript:window.open("https://candle-wood.codesalvageon.repl.co/", "", "width=501,height=601");
 ```
-* You can put the above code in the URL and run it there, or you can open the console using inspect element and paste the following code:
+<p>You can put the above code in the URL and run it there, or you can open the console using inspect element and paste the following code:</p>
 ```
 window.open("https://candle-wood.codesalvageon.repl.co/", "", "width=501,height=601");
 ```
