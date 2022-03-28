@@ -18,6 +18,15 @@ const ctx = imageCanvas.getContext('2d');
 
 imageLoader.addEventListener('change', handleImage, false);
 let wikipediaLoader = [];
+let wikipediaSaver = localStorage.getItem("candle_wood_wl");
+
+if (wikipediaSaver === null || wikipediaSaver === "" || wikipediaSaver === undefined) {
+  // Do nothing
+}
+
+else {
+  wikipediaLoader = JSON.parse(wikipediaSaver);
+}
 
 function handleImage (e) {
   let reader = new FileReader();
@@ -85,8 +94,6 @@ cmd_form.onsubmit = function () {
     output_display.innerHTML += "<p>js - execute javascript commands</p>";
     output_display.innerHTML += "<p>net - check the Candle Wood server</p>";
     output_display.innerHTML += "<p>local - local network settings</p>";
-    output_display.innerHTML += "<p>download - download your calculator state</p>";
-    output_display.innerHTML += "<p>upload - upload and load your calculator state</p>";
     output_display.innerHTML += "<p>cls - clear the screen</p>";
     output_display.innerHTML += "<p>scrape - webscrape a URL</p>";
     output_display.innerHTML += "<p>math - parse a math expression</p>";
@@ -263,13 +270,26 @@ cmd_form.onsubmit = function () {
     }
   }
 
-  else if (cmd_a.includes("download")) {
-    
+  /* else if (cmd_a === "download") {
+    let downloadData = btoa(output_display.innerHTML + "/<..>??:;" + wikipediaLoader);
+    output_display.innerHTML += "<p class='line'></p>";
+    output_display.innerHTML += "<p>" + downloadData + "</p>";
+    output_display.innerHTML += "<p class='line'></p>";
+    output_display.innerHTML += "<p>Copy the above data and put it somewhere safe, such as a text file.</p>";
+  } 
+
+  else if (cmd_a.includes("upload")) {
+    let uploadData = cmd_a.slice("6").replace(" ", "");
+    let uploadArray = uploadData.split("/<..>??:;");
+
+    output_display.innerHTML = uploadArray[0];
+    wikipediaLoader = JSON.parse(uploadArray[1]);
+    output_display.innerHTML += "<p>Uploaded calculator state.</p>";
   }
 
-  else if (cmd_a.includes("upload")) {}
+  */
 
-  else if (cmd_a.includes("cls")) {
+  else if (cmd_a === "cls") {
     if (cmd_a.includes("cls ") || cmd_a.length > 3) {
       output_display.innerHTML += "<p>No parameters found for command cls</p>";
     }
@@ -357,7 +377,8 @@ cmd_form.onsubmit = function () {
 
         else {
           wikipediaLoader.push(formula_page + ">/?}|\+=-;" + data);
-          output_display.innerHTML += "<p>Downloaded Wikipedia page. However, it is advised that you download your calculator state.</p>";
+          output_display.innerHTML += "<p>Downloaded Wikipedia page.</p>";
+          localStorage.setItem("candle_wood_wl", JSON.stringify(wikipediaLoader));
         }
       })
       .catch(error => {
