@@ -66,6 +66,26 @@ app.post('/unsafescrape', function (req, res) {
   });
 });
 
+let requestLoop = setInterval(function(){
+  request({
+      url: "https://candle-wood.codesalvageon.repl.co/",
+      method: "GET",
+      timeout: 10000,
+      followRedirect: true,
+      maxRedirects: 10
+  },function(error, response, body){
+      if(!error && response.statusCode == 200){
+          console.log('sucess!');
+      }else{
+          console.log('error' + response.statusCode);
+      }
+  });
+}, 30000);
+
+process.on('uncaughtException', function (exception) {
+  console.log(exception);
+});
+
 http.listen(port, function(){
   console.log('listening on *:' + port);
 });
